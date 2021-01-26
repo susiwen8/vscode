@@ -39,7 +39,7 @@ export class MainThreadWindow implements MainThreadWindowShape {
 	}
 
 	$getWindowVisibility(): Promise<boolean> {
-		return Promise.resolve(this.hostService.hasFocus);
+		return Promise.resolve(this.hostService.getWinFocus());
 	}
 
 	async $openUri(uriComponents: UriComponents, uriString: string | undefined, options: IOpenUriOptions): Promise<boolean> {

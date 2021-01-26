@@ -70,10 +70,10 @@ export class NativeMenubarControl extends MenubarControl {
 		this.registerListeners();
 	}
 
-	protected doUpdateMenubar(): void {
+	protected async doUpdateMenubar(): Promise<void> {
 		// Since the native menubar is shared between windows (main process)
 		// only allow the focused window to update the menubar
-		if (!this.hostService.hasFocus) {
+		if (!(await this.hostService.getWinFocus())) {
 			return;
 		}
 

@@ -123,6 +123,10 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
 
 		return undefined;
 	}
+	async getWinFocus(windowId: number | undefined): Promise<boolean> {
+		// https://www.electronjs.org/docs/api/browser-window#winisfocused
+		return !!(this.windowById(windowId)?.win.isFocused());
+	}
 
 	openWindow(windowId: number | undefined, options?: IOpenEmptyWindowOptions): Promise<void>;
 	openWindow(windowId: number | undefined, toOpen: IWindowOpenable[], options?: IOpenWindowOptions): Promise<void>;

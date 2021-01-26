@@ -284,13 +284,13 @@ export class NotificationsToasts extends Themable implements INotificationsToast
 
 		const hideAfterTimeout = () => {
 
-			purgeTimeoutHandle = setTimeout(() => {
+			purgeTimeoutHandle = setTimeout(async () => {
 
 				// If the window does not have focus, we wait for the window to gain focus
 				// again before triggering the timeout again. This prevents an issue where
 				// focussing the window could immediately hide the notification because the
 				// timeout was triggered again.
-				if (!this.hostService.hasFocus) {
+				if (!(await this.hostService.getWinFocus())) {
 					if (!listener) {
 						listener = this.hostService.onDidChangeFocus(focus => {
 							if (focus) {

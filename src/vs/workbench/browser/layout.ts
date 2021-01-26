@@ -475,7 +475,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		this.updateWindowBorder();
 	}
 
-	private initLayoutState(lifecycleService: ILifecycleService, fileService: IFileService): void {
+	private async initLayoutState(lifecycleService: ILifecycleService, fileService: IFileService): Promise<void> {
 
 		// Default Layout
 		this.applyDefaultLayout(this.environmentService, this.storageService);
@@ -552,7 +552,7 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		// Zen mode enablement
 		this.state.zenMode.restore = this.storageService.getBoolean(Storage.ZEN_MODE_ENABLED, StorageScope.WORKSPACE, false) && this.configurationService.getValue(Settings.ZEN_MODE_RESTORE);
 
-		this.state.hasFocus = this.hostService.hasFocus;
+		this.state.hasFocus = await this.hostService.getWinFocus();
 
 		// Window border
 		this.updateWindowBorder(true);

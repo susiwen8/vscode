@@ -46,7 +46,7 @@ export abstract class AbstractTelemetryOptOut implements IWorkbenchContribution 
 
 			const [count, experimentState] = await Promise.all([this.getWindowCount(), this.experimentService.getExperimentById(experimentId)]);
 
-			if (!this.hostService.hasFocus && count > 1) {
+			if (!(await this.hostService.getWinFocus()) && count > 1) {
 				return; // return early if meanwhile another window opened (we only show the opt-out once)
 			}
 
